@@ -8,13 +8,10 @@ int main(){
 	
 	char alphabet[26];
 	
-	for(int i = 0; i < 26; i++){
-		alphabet[i] = 'a' + i;
-	}
-	
 	cin >> str;
 	
 	for(int i = 0; i < 26; i++){
+		alphabet[i] = 'a' + i;
 		for(int j = 0; ; j++){
 			if(j > str.length()){
 				cout << "-1";
