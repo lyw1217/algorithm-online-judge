@@ -14,16 +14,35 @@ https://www.acmicpc.net/problem/15649
 '''
 
 # DFS(Depth First Search) 문제
-
-def series(n):
-    
-    series(n)
-
-    return 
-
+# 깊이 우선 탐색
+# 모든 노드를 방문하고자 할 때 사용
+# 자기 자신을 호출하는 순환 알고리즘의 형태
+# 어떤 노드의 방문 여부를 반드시 검사해야한다. 그렇지 않으면 무한루프에 빠질 가능성이 있다.
+# 재귀 또는 스택을 이용하여 구현
 n , m = input().split()
 n = int(n)
 m = int(m)
 '''
 n , m = map( int, input().split() )
 '''
+
+visit   = [ False for i in range(n) ]
+node    = [ 0 for i in range(n) ]
+
+def series(count):
+    # 깊이가 M이면 탐색 과정에서 담은 리스트를 출력 후 리턴
+    if count == m :
+        for i in range(m) :
+            print(node[i], end=' ')
+        print()
+        return
+    
+    for i in range(n) :
+        if visit[i] == False :  # 방문하지 않았다면
+            visit[i] = True     # 방문함으로 표시 후
+            node[count] = i + 1 # 방문한 인덱스를 리스트에 넣고
+            series(count + 1)   # 다음 자식 노드 방문
+            visit[i] = False    # 자식 노드 방문이 끝나고 돌아오면 방문하지 않음으로 표시
+
+series(0)
+
