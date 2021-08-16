@@ -1,3 +1,5 @@
+// 1330번 - 두 수 비교하기
+
 #include<stdio.h>
 #define EQUAL(x,y) ((x == y) ? printf("==") : COMPARE(x,y))
 #define COMPARE(x,y) ((x > y) ? printf(">") : printf("<"))

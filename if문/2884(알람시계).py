@@ -1,3 +1,5 @@
+# 2884번 - 알람시계
+
 n , m = input().split(' ')
 n = int(n)
 m = int(m) - 45

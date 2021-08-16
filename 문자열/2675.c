@@ -1,3 +1,5 @@
+// 2675번 - 문자열 반복
+
 #include <stdio.h>
 #include <string.h>
 

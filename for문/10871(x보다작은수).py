@@ -1,3 +1,5 @@
+# 10871번 - X보다 작은 수
+
 n , m = input().split(' ')
 m = int(m)
 x = input().split(' ')

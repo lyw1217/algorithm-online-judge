@@ -1,3 +1,5 @@
+// 9498번 - 시험 성적
+
 #include<stdio.h>
 #define P(x) (printf("%c",x))
 int main() {

@@ -1,3 +1,5 @@
+# 2753번 - 윤년(python)
+
 year = int(input())
 
 if (year % 4 == 0):

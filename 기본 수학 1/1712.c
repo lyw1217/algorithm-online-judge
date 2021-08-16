@@ -1,10 +1,12 @@
+// 1712К╡┬ - Л├░Л²╣К╤└Й╦╟Л═░
+
 #include <stdio.h>
 
 int main() {
-	long fixed_cost;	// ╟Ма╓ ╨Я©К
-	long variable_cost; // ╟║╨╞ ╨Я©К
-	long product_price;	// а╕г╟ ╟║╟щ
-	long net_profit;	// ╪Ьюлюм
+	long fixed_cost;	// О©╫О©╫О©╫О©╫ О©╫О©╫О©╫
+	long variable_cost; // О©╫О©╫О©╫О©╫ О©╫О©╫О©╫
+	long product_price;	// О©╫О©╫г╟ О©╫О©╫О©╫О©╫
+	long net_profit;	// О©╫О©╫О©╫О©╫О©╫О©╫
 	int i;
 
 	scanf("%ld %ld %ld", &fixed_cost, &variable_cost, &product_price);

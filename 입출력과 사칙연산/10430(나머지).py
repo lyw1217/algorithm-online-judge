@@ -1,3 +1,5 @@
+# 10430번 - 나머지
+
 a,b,c = input().split(" ")
 a = int(a)
 b = int(b)

@@ -1,3 +1,5 @@
+// 10872번 - 팩토리얼
+
 #include <iostream>
 
 int main() {
