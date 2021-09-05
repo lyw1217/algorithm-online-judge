@@ -1,3 +1,5 @@
+# 2562번 - 최댓값
+
 n = []
 for i in range(9) :
     n.append(int(input()))
