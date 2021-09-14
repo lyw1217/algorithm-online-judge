@@ -14,14 +14,20 @@
 
 def solution ( n, lost, reserve):
     answer  = n - len(lost) # 체육 수업을 들을 수 있는 학생 수
-
+    #print( 'answer = ' , answer )
     # 도난 당했는데 여분이 있으면 삭제
     for i in lost :
         if i in reserve :
+            #print('reserve = ', reserve)
+            #print('reserve.index(i) = ', reserve.index(i))
             del reserve[reserve.index(i)]
+            answer += 1
+            if answer >= n:
+                return answer
 
     last    = len(reserve)  # 남은 체육복의 개수
 
+    #print('last = ', last, ' left = ' , answer)
     for i in reserve :
         answer += 1
         last -= 1
@@ -32,38 +38,39 @@ def solution ( n, lost, reserve):
 
 
 if __name__ == "__main__":
-    result      = 0
-    n           = [5       , 5     , 3  ]
-    lost        = [[2,4]   , [2,4] , [3]]
-    reserve     = [[1,3,5] , [3]   , [1]]
-    i_return    = [[5]     , [4]   , [2]]
+    n           = [5       , 5     , 3      , 5           , 5           ]
+    lost        = [[2,4]   , [2,4] , [3]    , [2,4]       , [1,2,3,4]   ]
+    reserve     = [[1,3,5] , [3]   , [1]    , [1,2,3,4,5] , [3,4,5]     ]
 
-    for i in range (3) :
-        print( solution(n[i], lost[i], reserve[i]) )
+    for i in range (len(n)) :
+        #print('\nstart\n')
+        print( 'result = ' , solution(n[i], lost[i], reserve[i]))
+        #print('\nend\n')
 
 
 '''
 
-테스트 1 〉	실패 (0.00ms, 10.2MB)
-테스트 2 〉	실패 (0.01ms, 10.2MB)
-테스트 3 〉	실패 (0.00ms, 10.2MB)
+테스트 1 〉	통과 (0.01ms, 10.2MB)
+테스트 2 〉	통과 (0.01ms, 10.2MB)
+테스트 3 〉	실패 (0.01ms, 10.1MB)
 테스트 4 〉	실패 (0.00ms, 10.2MB)
-테스트 5 〉	실패 (0.01ms, 10.2MB)
-테스트 6 〉	실패 (0.00ms, 10.2MB)
-테스트 7 〉	실패 (0.01ms, 10.2MB)
-테스트 8 〉	실패 (0.00ms, 10.2MB)
-테스트 9 〉	통과 (0.00ms, 10.1MB)
-테스트 10 〉	실패 (0.01ms, 10.2MB)
+테스트 5 〉	실패 (0.01ms, 10.1MB)
+테스트 6 〉	통과 (0.01ms, 10.2MB)
+테스트 7 〉	통과 (0.01ms, 10.1MB)
+테스트 8 〉	실패 (0.00ms, 10.1MB)
+테스트 9 〉	실패 (0.00ms, 10.1MB)
+테스트 10 〉	통과 (0.01ms, 10.1MB)
 테스트 11 〉	통과 (0.00ms, 10.2MB)
-테스트 12 〉	통과 (0.00ms, 10.2MB)
-테스트 13 〉	통과 (0.00ms, 10.2MB)
-테스트 14 〉	통과 (0.00ms, 10.3MB)
-테스트 15 〉	통과 (0.00ms, 10.2MB)
-테스트 16 〉	통과 (0.00ms, 10.2MB)
+테스트 12 〉	실패 (0.00ms, 10.2MB)
+테스트 13 〉	통과 (0.00ms, 10.1MB)
+테스트 14 〉	통과 (0.00ms, 10.1MB)
+테스트 15 〉	통과 (0.00ms, 10.3MB)
+테스트 16 〉	통과 (0.00ms, 10.1MB)
 테스트 17 〉	통과 (0.00ms, 10.2MB)
 테스트 18 〉	통과 (0.00ms, 10.2MB)
 테스트 19 〉	통과 (0.00ms, 10.2MB)
-테스트 20 〉	통과 (0.00ms, 10.3MB)
+테스트 20 〉	통과 (0.00ms, 10.2MB)
 
-엄청난 실패..
+어디가 틀린거지..
+
 '''
