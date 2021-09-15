@@ -15,19 +15,19 @@
 def solution ( n, lost, reserve):
     answer = n
 
+    lost = sorted(lost)
+    reserve = sorted(reserve)
     # 도난 당했는데 여분이 있으면 삭제
-    for i in reserve[:] :
-        if i in lost :
+    for i in lost[:] :
+        if i in reserve :
             del reserve[reserve.index(i)]
             del lost[lost.index(i)]
 
-    for i in lost[:] :
-        if (i+1) in reserve :
-            del lost[lost.index(i)]
-            del reserve[reserve.index(i+1)]
-        elif (i-1) in reserve :
-            del lost[lost.index(i)]
-            del reserve[reserve.index(i-1)]
+    for i in reserve :
+        if (i-1) in lost :
+            del lost[lost.index(i-1)]
+        elif (i+1) in lost :
+            del lost[lost.index(i+1)]
 
     return answer - len(lost)
 
@@ -47,24 +47,24 @@ if __name__ == "__main__":
 
 테스트 1 〉	통과 (0.01ms, 10.2MB)
 테스트 2 〉	통과 (0.01ms, 10.2MB)
-테스트 3 〉	통과 (0.01ms, 10.2MB)
-테스트 4 〉	통과 (0.01ms, 10.2MB)
-테스트 5 〉	통과 (0.01ms, 10.2MB)
+테스트 3 〉	통과 (0.01ms, 10.3MB)
+테스트 4 〉	통과 (0.01ms, 10.3MB)
+테스트 5 〉	통과 (0.01ms, 10.3MB)
 테스트 6 〉	통과 (0.01ms, 10.2MB)
-테스트 7 〉	통과 (0.02ms, 10.3MB)
+테스트 7 〉	통과 (0.01ms, 10.2MB)
 테스트 8 〉	통과 (0.01ms, 10.2MB)
 테스트 9 〉	통과 (0.01ms, 10.2MB)
-테스트 10 〉	통과 (0.01ms, 10.2MB)
-테스트 11 〉	통과 (0.01ms, 10.1MB)
-테스트 12 〉	통과 (0.00ms, 10.1MB)
-테스트 13 〉	통과 (0.01ms, 10.1MB)
+테스트 10 〉	통과 (0.02ms, 10.3MB)
+테스트 11 〉	통과 (0.01ms, 10.3MB)
+테스트 12 〉	통과 (0.01ms, 10.1MB)
+테스트 13 〉	통과 (0.01ms, 10.2MB)
 테스트 14 〉	통과 (0.01ms, 10.2MB)
 테스트 15 〉	통과 (0.00ms, 10.2MB)
-테스트 16 〉	통과 (0.01ms, 10.2MB)
-테스트 17 〉	실패 (0.00ms, 10.2MB)
-테스트 18 〉	실패 (0.00ms, 10.2MB)
-테스트 19 〉	통과 (0.01ms, 10.2MB)
-테스트 20 〉	통과 (0.00ms, 10.1MB)
+테스트 16 〉	통과 (0.00ms, 10.1MB)
+테스트 17 〉	통과 (0.01ms, 10.3MB)
+테스트 18 〉	통과 (0.01ms, 10.2MB)
+테스트 19 〉	통과 (0.00ms, 10.2MB)
+테스트 20 〉	통과 (0.01ms, 10.1MB)
 
 https://velog.io/@syc1013/%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B2%B4%EC%9C%A1%EB%B3%B5
 
@@ -73,6 +73,10 @@ https://velog.io/@syc1013/%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%ED%94%84%EB%A1%9C
 
 그러므로 기준이 되는 list는 복사해서 사용하자.
 
-아 근데 뭐가 문제임ㅡㅡ
+https://rain-bow.tistory.com/entry/Python-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B2%B4%EC%9C%A1%EB%B3%B5
+
+체육복을 양 옆 학생에게 빌려줄 수 있다면 왼쪽(작은)부터 주자
+
+- 이를 위해서 정렬을 꼭 해야한다....
 
 '''
