@@ -13,32 +13,27 @@
 '''
 
 def solution ( n, lost, reserve):
-    answer  = n - len(lost) # 체육 수업을 들을 수 있는 학생 수
+    answer = n
 
     # 도난 당했는데 여분이 있으면 삭제
-    for i in lost :
-        if i in reserve :
+    for i in reserve[:] :
+        if i in lost :
             del reserve[reserve.index(i)]
             del lost[lost.index(i)]
-            answer += 1
-            if answer >= n:
-                return answer
 
-    last    = len(reserve)  # 남은 체육복의 개수
+    for i in lost[:] :
+        if (i+1) in reserve :
+            del lost[lost.index(i)]
+            del reserve[reserve.index(i+1)]
+        elif (i-1) in reserve :
+            del lost[lost.index(i)]
+            del reserve[reserve.index(i-1)]
 
-    for i in reserve :
-        for j in lost :
-            if (i+1) == j or (i-1) == j :
-                answer += 1
-                last -= 1
-                if last <= 0 or answer >= n:
-                    return answer
-
-    return answer
+    return answer - len(lost)
 
 
 if __name__ == "__main__":
-    n           = [5       , 5     , 3      , 5           , 5           , 5       , 4]
+    n           = [5       , 5     , 3      , 5           , 5           , 5       , 4    ]
     lost        = [[2,4]   , [2,4] , [3]    , [2,4]       , [1,2,3,4]   , [1,2,3] , [3,1]]
     reserve     = [[1,3,5] , [3]   , [1]    , [1,2,3,4,5] , [3,4,5]     , [2,3,4] , [2,4]]
 
@@ -52,28 +47,32 @@ if __name__ == "__main__":
 
 테스트 1 〉	통과 (0.01ms, 10.2MB)
 테스트 2 〉	통과 (0.01ms, 10.2MB)
-테스트 3 〉	실패 (0.01ms, 10.2MB)
-테스트 4 〉	실패 (0.01ms, 10.3MB)
-테스트 5 〉	실패 (0.01ms, 10.3MB)
-테스트 6 〉	통과 (0.00ms, 10.2MB)
+테스트 3 〉	통과 (0.01ms, 10.2MB)
+테스트 4 〉	통과 (0.01ms, 10.2MB)
+테스트 5 〉	통과 (0.01ms, 10.2MB)
+테스트 6 〉	통과 (0.01ms, 10.2MB)
 테스트 7 〉	통과 (0.02ms, 10.3MB)
-테스트 8 〉	통과 (0.01ms, 10.3MB)
-테스트 9 〉	통과 (0.00ms, 10.2MB)
+테스트 8 〉	통과 (0.01ms, 10.2MB)
+테스트 9 〉	통과 (0.01ms, 10.2MB)
 테스트 10 〉	통과 (0.01ms, 10.2MB)
-테스트 11 〉	통과 (0.00ms, 10.2MB)
-테스트 12 〉	통과 (0.00ms, 10.3MB)
-테스트 13 〉	통과 (0.00ms, 10.3MB)
-테스트 14 〉	통과 (0.00ms, 10.3MB)
-테스트 15 〉	통과 (0.00ms, 10.3MB)
-테스트 16 〉	통과 (0.00ms, 10.3MB)
-테스트 17 〉	통과 (0.00ms, 10.3MB)
-테스트 18 〉	통과 (0.00ms, 10.3MB)
-테스트 19 〉	통과 (0.00ms, 10.3MB)
-테스트 20 〉	통과 (0.00ms, 10.3MB)
+테스트 11 〉	통과 (0.01ms, 10.1MB)
+테스트 12 〉	통과 (0.00ms, 10.1MB)
+테스트 13 〉	통과 (0.01ms, 10.1MB)
+테스트 14 〉	통과 (0.01ms, 10.2MB)
+테스트 15 〉	통과 (0.00ms, 10.2MB)
+테스트 16 〉	통과 (0.01ms, 10.2MB)
+테스트 17 〉	실패 (0.00ms, 10.2MB)
+테스트 18 〉	실패 (0.00ms, 10.2MB)
+테스트 19 〉	통과 (0.01ms, 10.2MB)
+테스트 20 〉	통과 (0.00ms, 10.1MB)
 
-'앞번호의 학생이나 바로 뒷번호의 학생에게만 체육복을 빌려줄 수 있습니다'
-문제를 똑바로 읽자
+https://velog.io/@syc1013/%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EC%B2%B4%EC%9C%A1%EB%B3%B5
 
-근데 왜..?
+리스트를 반복하면서 조건에 따라 리스트의 원소를 제거하는 방법을 사용할 때
+동일한 list의 원소를 제거하면 iterate의 기준이 되는 list가 변경되므로 원치 않는 결과가 나올 수 있다.
+
+그러므로 기준이 되는 list는 복사해서 사용하자.
+
+아 근데 뭐가 문제임ㅡㅡ
 
 '''
