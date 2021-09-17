@@ -57,6 +57,33 @@ def solution(name) :
             alpha_count += abs(alphabet.index(idx) - alpha_len)
 
     ''' 좌우 방향키 '''
+    namelist = list(name)
+    n = len(namelist)
+    change = []
+    index = []
+
+    for i, v in enumerate(namelist):
+        if v != 'A' :
+            change.append(v)
+            if i != 0 :
+                index.append(i)
+
+    # 1. 오른쪽으로만 이동하는 비용
+    right = max(index)
+
+    # 2. 왼쪽으로만 이동하는 비용
+    left = n - min(index)
+
+    # 3. 오른쪽으로 가다가 왼쪽으로 이동하는 비용
+    rightleft = max(right, left)
+
+    for i in range(len(index)-1):
+        temp = 2 * index[i] + (n-index[i+1])
+        rightleft = (temp if temp < rightleft else rightleft)
+    
+
+    return alpha_count + min(right, left, rightleft)  # 비용들 중 최소비용을 더함
+    '''
     # 1. 오른쪽으로 쭉 이동하는 비용 = len(name)-1 (만약 나머지가 전부 A라면, 전체 count에서 'A'이동 count 뺴기)
     for i in range(len(name)) :
         if name[i] == 'A' :
@@ -89,71 +116,57 @@ def solution(name) :
         cursor_count.append(len(name)-1)
     
     # 3. 오른쪽으로 이동 중 'A'가 나오면 뒤로 back해서 [다시 A가 나올때까지 or i+1인덱스까지]
-    for i in range(len(name)) :
+    for i in range(1,len(name)-1,1) :
         if (name[i] == 'A') and (i <= (len(name) // 2)) :
             back_count = 0
-            for j in range(len(name)-1, -(i) , -1) :
-                #print('name[{}] = {}'.format(j, name[j]))
+            # 뒤로 back
+            for j in range(len(name)-1, i , -1) :
+                if j == len(name)-1 and name[j] == 'A' :
+                    back_count += 1
+                    continue
+                print('len(name)-1 = ', len(name)-1)
+                print('name[{}] = {}'.format(j, name[j]))
                 back_count += 1
-                #print(back_count)
+                print(back_count)
                 if name[j] == 'A' or j == -(i-2) :
                     if ((i - 1) + (i - 1) + (back_count - 1)) > 0 :
                         cursor_count.append((i - 1) + (i - 1) + (back_count - 1))
-                        #print('i({}) + i-1({}) + back_count-1({}) = {}'.format(i-1, i-1, back_count-1, i + (i-1) + (back_count-1)))
+                        print('i-1({}) + i-1({}) + back_count-1({}) = {}'.format(i-1, i-1, back_count-1, i + (i-1) + (back_count-1)))
                     break
-            #break
-            
-    return alpha_count + min(cursor_count)
+            break
+    print('alpha_count = ' , alpha_count)
+    print('cursor_count = ' , cursor_count)
+    return alpha_count + min(cursor_count)  # 비용들 중 최소비용을 더함
+    '''
 
 if __name__ == "__main__":
-    name = ["JAZ", "JEROEN", "JAN", "ABAAAAAAAAABB", "ZAAAZZZZZZZ"]
+    name   = ["JAZ", "JEROEN", "JAN", "ABAAAAAAAAABB", "ZAAAZZZZZZZ", "BBAAAABA"]
+    answer = [   11,       56,    23,               7,            15,          7]
     # "ABAAAAAAAAABB", 11번 테스트 케이스, 답 : 7
-    # "ZAAAZZZZZZZ" 답 : 15
-    result = 0
     for i in range(len(name)) :
         result = solution(name[i])
         print( 'result = ' , result)
-        if i == 0 :
-            if result == 11 :
-                print( 'SUCCESS' )
-            else :
-                print( 'FAIL' )
-        elif i == 1 :
-            if result == 56 :
-                print( 'SUCCESS' )
-            else :
-                print( 'FAIL' )
-        elif i == 2 :
-            if result == 23 :
-                print( 'SUCCESS' )
-            else :
-                print( 'FAIL' )
-        elif i == 3 :
-            if result == 7 :
-                print( 'SUCCESS' )
-            else :
-                print( 'FAIL' )
-        elif i == 4 :
-            if result == 15 :
-                print( 'SUCCESS' )
-            else :
-                print( 'FAIL' )
+        if result == answer[i] :
+            print( 'SUCCESS' )
+        else :
+            print( 'FAIL' )
 
 
 '''
-테스트 1 〉	통과 (0.01ms, 10.3MB)
-테스트 2 〉	통과 (0.01ms, 10.3MB)
-테스트 3 〉	통과 (0.01ms, 10.2MB)
-테스트 4 〉	실패 (0.02ms, 10.3MB)
-테스트 5 〉	통과 (0.02ms, 10.4MB)
-테스트 6 〉	통과 (0.01ms, 10.4MB)
-테스트 7 〉	실패 (0.02ms, 10.3MB)
-테스트 8 〉	통과 (0.01ms, 10.4MB)
-테스트 9 〉	통과 (0.01ms, 10.4MB)
-테스트 10 〉	통과 (0.02ms, 10.3MB)
-테스트 11 〉	통과 (0.02ms, 10.3MB)
+테스트 1 〉	통과 (0.01ms, 10.2MB)
+테스트 2 〉	통과 (0.02ms, 10.2MB)
+테스트 3 〉	통과 (0.01ms, 10.3MB)
+테스트 4 〉	통과 (0.02ms, 10.2MB)
+테스트 5 〉	통과 (0.02ms, 10.3MB)
+테스트 6 〉	통과 (0.01ms, 10.3MB)
+테스트 7 〉	통과 (0.02ms, 10.4MB)
+테스트 8 〉	통과 (0.01ms, 10.3MB)
+테스트 9 〉	통과 (0.01ms, 10.3MB)
+테스트 10 〉	통과 (0.01ms, 10.3MB)
+테스트 11 〉	통과 (0.01ms, 10.3MB)
 
-테스트 11을 통과하니까
-테스트 4,7이 실패한다..
-새로 추가한 # 3에서 잘못 도는 듯
+참고 자료
+https://velog.io/@imyo/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%ED%83%90%EC%9A%95%EB%B2%95Greedy-%EC%A1%B0%EC%9D%B4%EC%8A%A4%ED%8B%B1-Level-2
+
+...이건 좀
 '''
