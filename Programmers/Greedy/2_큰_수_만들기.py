@@ -17,14 +17,13 @@ k는 1 이상 number의 자릿수 미만인 자연수입니다.
 '''
 
 def solution(number, k):
-    number = list(map(int, number))
-    idx    = 1
+    #number  = list(map(int, number))
+    idx     = 1
     while True :
         if number[idx] > number[idx-1] :
-            print('number = ', number)
-            print('number[{}]: {} > number[{}]: {}'.format(idx, number[idx], idx-1, number[idx-1]))
             k  -= 1
-            del number[idx-1]
+            #del number[idx-1]
+            number = number[:idx-1] + number[idx:]
             idx = 1
             if k == 0 :
                 break
@@ -32,8 +31,9 @@ def solution(number, k):
         idx += 1
         if idx > len(number) :
             idx = 1
-    
-    return "".join(map(str, number))
+
+    #return "".join(map(str, number))
+    return "" + number
 
 if __name__ == "__main__":
     number   = ["1924", "1231234", "4177252841"]
@@ -49,19 +49,19 @@ if __name__ == "__main__":
             print( 'FAIL' )
 
 '''
-테스트 1  〉	통과 (0.02ms, 10.3MB)
-테스트 2  〉	통과 (0.03ms, 10.3MB)
-테스트 3  〉	통과 (0.08ms, 10.2MB)
-테스트 4  〉	통과 (0.31ms, 10.4MB)
-테스트 5  〉	통과 (1.69ms, 10.4MB)
-테스트 6  〉	통과 (623.73ms, 10.7MB)
-테스트 7  〉	통과 (1458.46ms, 13.4MB)
+테스트 1  〉	통과 (0.01ms, 10.2MB)
+테스트 2  〉	통과 (0.01ms, 10.3MB)
+테스트 3  〉	통과 (0.06ms, 10.2MB)
+테스트 4  〉	통과 (0.36ms, 10.2MB)
+테스트 5  〉	통과 (1.68ms, 10.2MB)
+테스트 6  〉	통과 (655.63ms, 10.3MB)
+테스트 7  〉	통과 (1441.64ms, 10.4MB)
 테스트 8  〉	실패 (시간 초과)
-테스트 9  〉	통과 (119.19ms, 34.6MB)
+테스트 9  〉	통과 (10.11ms, 11.8MB)
 테스트 10 〉	실패 (시간 초과)
-테스트 11 〉	통과 (0.03ms, 10.3MB)
+테스트 11 〉	통과 (0.00ms, 10.1MB)
 테스트 12 〉	실패 (런타임 에러)
 
-시간 초과
-런타임 에러..?
+몇몇 테스트에서 시간이 조금 단축되긴 했지만
+아직도 해결안된 테스트는 그대로
 '''
