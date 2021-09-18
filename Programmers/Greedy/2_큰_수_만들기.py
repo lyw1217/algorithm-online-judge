@@ -17,6 +17,7 @@ k는 1 이상 number의 자릿수 미만인 자연수입니다.
 '''
 
 def solution(number, k):
+    '''
     if len(number) == 1 :   # 한 자리 예외처리
         return number
 
@@ -47,8 +48,49 @@ def solution(number, k):
                 k -= 1
                 if k == 0 :
                     break
-
     return number
+    '''
+    '''
+    # 태희형 방법
+    answer = ''
+
+    prev = 10
+    for idx, n in enumerate(list(map(int,number))) :
+        print(idx)
+        if prev < n :
+            while prev < n and k > 0 :
+                try:
+                    prev = int(answer[-1])
+                    if prev >= n :
+                        break
+                except :
+                    break
+                answer = answer[:-1]
+                k -= 1
+        
+        answer += str(n)
+
+        if k == 0 :
+            answer += number[idx+1:]
+            break
+        prev = n
+
+    if k > 0 :
+        answer = answer[:-k]
+
+    return answer
+    '''
+    # stack 을 이용
+    stack = []
+    for n in number :
+        # stack에 아무것도 없다면 n을 추가
+        # stack의 마지막 원소가 n보다 작다면 stack의 마지막 원소를 pop
+        while stack and stack[-1] < n and k > 0 :
+            k -= 1
+            stack.pop()
+        stack.append(n)
+    
+    return "".join(stack[:len(stack)-k])
 
 if __name__ == "__main__":
     number   = ["1924", "1231234", "4177252841" , "1111111111111111", "10100"]
