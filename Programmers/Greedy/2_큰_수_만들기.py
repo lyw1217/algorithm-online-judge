@@ -17,29 +17,44 @@ k는 1 이상 number의 자릿수 미만인 자연수입니다.
 '''
 
 def solution(number, k):
-    #number  = list(map(int, number))
+    if len(number) == 1 :   # 한 자리 예외처리
+        return number
+
+    if number.count(number[0]) == len(number) :   # 모두 같은 숫자면
+        number = number[:len(number)-k]           # k 개 만큼 제거 후 리턴
+        return number
+
     idx     = 1
     while True :
-        if number[idx] > number[idx-1] :
+        print('idx = ', idx)
+        print('number = ', number)
+        print('number[{}] = {}, number[{}] = {}'.format(idx, number[idx], idx-1, number[idx-1]))
+        if number[idx] > number[idx-1] or number[idx-1] == 0:
             k  -= 1
-            #del number[idx-1]
             number = number[:idx-1] + number[idx:]
             idx = 1
             if k == 0 :
                 break
             continue
         idx += 1
+        print('len(number) = ', len(number))
         if idx > len(number) :
             idx = 1
+        elif idx == len(number) :   # 마지막 숫자를 제외시켜야 하는 경우
+            idx = 1
+            if k > 0 :
+                number = number[:-1]
+                k -= 1
+                if k == 0 :
+                    break
 
-    #return "".join(map(str, number))
-    return "" + number
+    return number
 
 if __name__ == "__main__":
-    number   = ["1924", "1231234", "4177252841"]
-    k        = [     2,         3,            4]
-    answer   = [  "94",    "3234",     "775841"]
-    # "ABAAAAAAAAABB", 11번 테스트 케이스, 답 : 7
+    number   = ["1924", "1231234", "4177252841" , "1111111111111111", "10100"]
+    k        = [     2,         3,            4 ,                  5,       3]
+    answer   = [  "94",    "3234",     "775841" ,      "11111111111",    "11"]
+    # 10100 : runtime error
     for i in range(len(number)) :
         result = solution(number[i], k[i])
         print( 'result = ' , result)
@@ -47,21 +62,22 @@ if __name__ == "__main__":
             print( 'SUCCESS' )
         else :
             print( 'FAIL' )
+        print('')
 
 '''
-테스트 1  〉	통과 (0.01ms, 10.2MB)
-테스트 2  〉	통과 (0.01ms, 10.3MB)
-테스트 3  〉	통과 (0.06ms, 10.2MB)
-테스트 4  〉	통과 (0.36ms, 10.2MB)
-테스트 5  〉	통과 (1.68ms, 10.2MB)
-테스트 6  〉	통과 (655.63ms, 10.3MB)
-테스트 7  〉	통과 (1441.64ms, 10.4MB)
+테스트 1  〉	통과 (0.01ms, 10.1MB)
+테스트 2  〉	통과 (0.02ms, 10.2MB)
+테스트 3  〉	통과 (0.09ms, 10.2MB)
+테스트 4  〉	통과 (0.31ms, 10.1MB)
+테스트 5  〉	통과 (3.03ms, 10.2MB)
+테스트 6  〉	통과 (1271.53ms, 10.2MB)
+테스트 7  〉	통과 (2585.34ms, 10.3MB)
 테스트 8  〉	실패 (시간 초과)
-테스트 9  〉	통과 (10.11ms, 11.8MB)
+테스트 9  〉	통과 (12.48ms, 11.5MB)
 테스트 10 〉	실패 (시간 초과)
 테스트 11 〉	통과 (0.00ms, 10.1MB)
-테스트 12 〉	실패 (런타임 에러)
+테스트 12 〉	통과 (0.01ms, 10.2MB)
 
-몇몇 테스트에서 시간이 조금 단축되긴 했지만
-아직도 해결안된 테스트는 그대로
+런타임 에러 해결하니
+시간이 더 오래걸린다
 '''
