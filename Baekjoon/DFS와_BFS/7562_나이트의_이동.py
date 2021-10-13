@@ -23,18 +23,19 @@ my = [ 1, -1,  2,  2, 1,-1, 2,-2]
 
 def knight() :
     l               = int(input()) # 체스판의 한 변의 길이(체스판은 l x l 크기), 4 <= l <= 300
-    cur_x , cur_y   = list(map(int, input().split(' '))) # 현재 위치
+    x , y           = list(map(int, input().split(' '))) # 현재 위치
     dest_x, dest_y  = list(map(int, input().split(' '))) # 목표 위치
-    if cur_x == dest_x and cur_y == dest_y :
+    if x == dest_x and y == dest_y :
         return 0
-    queue           = deque([cur_x, cur_y])
-    visited         = [ [0 for i in range(l)] for i in range(l) ] # 방문한 노드가 몇 번째 이동한 뒤 방문인지
-    visited[cur_x][cur_y] = 1
+    queue = deque()
+    queue.append([x, y])
+    visited = [ [0 for i in range(l)] for i in range(l) ] # 방문한 노드가 몇 번째 이동한 뒤 방문인지
+    visited[x][y] = 1
 
     while queue :
         x, y = queue.popleft()  # 현재 위치
         if x == dest_x and y == dest_y :
-            return visited[x][y]
+            return visited[x][y] - 1
         
         # 체스판보다 멀리 나가면 break
         if x >= l or y >= l :
@@ -50,7 +51,6 @@ def knight() :
                 continue
             
             if visited[tmp_x][tmp_y] == 0 :
-                print("HERE")
                 visited[tmp_x][tmp_y] = visited[x][y] + 1
                 queue.append([tmp_x, tmp_y])
 
