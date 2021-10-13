@@ -18,18 +18,14 @@ from collections import deque
 8가지
 '''
 # 이동 가능한 좌표
-mx = [-2, -2, -1, -1, 2, 2, 1, 1]
-my = [ 1, -1,  2,  2, 1,-1, 2,-2]
+dx = [-2, -2, -1, -1, 2, 2, 1, 1]
+dy = [ 1, -1,  2,  2, 1,-1, 2,-2]
 
-def knight() :
-    l               = int(input()) # 체스판의 한 변의 길이(체스판은 l x l 크기), 4 <= l <= 300
-    x , y           = list(map(int, input().split(' '))) # 현재 위치
-    dest_x, dest_y  = list(map(int, input().split(' '))) # 목표 위치
+def knight_bfs(x, y, dest_x, dest_y) :
     if x == dest_x and y == dest_y :
         return 0
     queue = deque()
     queue.append([x, y])
-    visited = [ [0 for i in range(l)] for i in range(l) ] # 방문한 노드가 몇 번째 이동한 뒤 방문인지
     visited[x][y] = 1
 
     while queue :
@@ -43,21 +39,25 @@ def knight() :
         
         for i in range(8) : # 움직일 수 있는 가짓수가 8가지이므로
             # 이동한 좌표
-            tmp_x = x + mx[i]
-            tmp_y = y + my[i]
+            nx = x + dx[i]
+            ny = y + dy[i]
 
             # 좌표가 0 ~ (l-1) 사이의 값을 가지므로 이동한 좌표가 체스판의 범위 밖이면 다른 노드를 탐색한다.
-            if tmp_x < 0 or tmp_y < 0 or tmp_x >= l or tmp_y >= l :
+            if nx < 0 or ny < 0 or nx >= l or ny >= l :
                 continue
             
-            if visited[tmp_x][tmp_y] == 0 :
-                visited[tmp_x][tmp_y] = visited[x][y] + 1
-                queue.append([tmp_x, tmp_y])
+            if visited[nx][ny] == 0 :
+                visited[nx][ny] = visited[x][y] + 1
+                queue.append([nx, ny])
 
     return (-1)
                 
 n = int(input())    # 테스트 케이스의 개수
 
 for i in range(n) :
-    print(knight())
-
+    l               = int(input()) # 체스판의 한 변의 길이(체스판은 l x l 크기), 4 <= l <= 300
+    x, y            = list(map(int, input().split(' '))) # 시작 위치
+    dest_x, dest_y  = list(map(int, input().split(' '))) # 목표 위치
+    visited = [ [0 for i in range(l)] for i in range(l) ] # 방문한 노드가 몇 번째 이동한 뒤 방문인지
+    
+    print(knight_bfs(x, y, dest_x, dest_y))
