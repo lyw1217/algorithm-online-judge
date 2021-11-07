@@ -19,13 +19,29 @@ is_cards = [ c for c in map(int, input().split(' '))]
 
 own_cards.sort()
 
+def seek(target, cards) :
+    start = 0
+    end = n - 1
+
+    while start <= end :
+        mid = (start + end) // 2
+
+        if cards[mid] == target :
+            return True
+        elif cards[mid] > target :
+            end = mid - 1
+        else :
+            start = mid + 1
+    
+    return False
+
 result = ''
 for card in is_cards :
-    if card in own_cards :
+    if seek(card, own_cards) :
         result += '1 '
     else :
         result += '0 '
 
 print(result)
 
-# 시간 초과
+# 정렬보다는 이분탐색 문제.
