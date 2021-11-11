@@ -14,11 +14,17 @@ for i in range(m) :
 see.sort()
 listen.sort()
 
-name = [n for n in see if n in listen]
-
+if n >= m :
+    name = list(set(see) - (set(see[:]) - set(listen[:])))
+else :
+    name = list(set(listen) - (set(listen[:]) - set(see[:])))
+name.sort()
 for n in name :
     answer += n
 print(len(name))
 print(answer)
 
-# 시간 초과..
+'''
+제출 번호	   아이디	문제	  결과	        메모리	  시간	    언어	  코드 길이	
+35329733	lyw1217	1764	맞았습니다!!	46416KB	132ms	Python 3 / 수정	442	
+'''
