@@ -9,26 +9,41 @@ from sys import stdin
 
 n, h = map(int, input().split(' '))
 
-path = [0 for _ in range(h)]    # 높이 만큼의 리스트
+s = []  # 석순
+j = []  # 종유석
 
-# 장애물(석순, 종유석)이 있는 위치를 표시
-# 높이가 3인 석순이라면 path[0 ~ 2]의 값을 1씩 증가
-# 높이가 4인 종유석이라면 ptrh[-1 ~ -4]의 값을 1씩 증가
 for i in range(n) :
     obs = int(stdin.readline())
     if i % 2 == 0 :
-        for j in range(obs) :
-            path[j] += 1
+        j.append(obs)
     else :
-        for j in range(h-1, h-obs-1, -1) :
-            path[j] += 1
+        s.append(obs)
 
-path.sort()
-num = 0
-min = path[0]
-for i, v in enumerate(path) :
-    if min != v :
-        num = i
-        break
-print(min, num)
-# min(path), path.count() 도 시간 초과
+j.sort()
+s.sort()
+
+min = n
+count = 0
+
+def binary_search( arr, target, start, end ) :
+    while start <= end :
+        # target 을 찾는다고 바로 리턴하지 않고 start <= end가 되는 지점을 찾는다
+        mid = (start + end)// 2
+        if arr[mid] < target : 
+            start = mid + 1
+        else :
+            end = mid - 1
+    
+    return start    # start 반환
+
+for i in range(1, h+1) :    # 높이(구간)가 1부터 시작하므로
+    j_count = len(j) - binary_search( j, i   - 0.5, 0, len(j)-1 )
+    s_count = len(s) - binary_search( s, h-i + 0.5, 0, len(s)-1 )
+
+    if min == j_count + s_count :
+        count += 1
+    elif min > j_count + s_count :
+        count = 1
+        min = j_count + s_count
+
+print(min, count)
