@@ -32,24 +32,41 @@ fibonacci(3)은 fibonacci(2)와 fibonacci(1)의 결과를 얻고, 2를 리턴한
 출력
 각 테스트 케이스마다 0이 출력되는 횟수와 1이 출력되는 횟수를 공백으로 구분해서 출력한다.
 '''
+'''
+n | c_0 , c_1
+--------------
+0 | 1   , 0
+1 | 0   , 1
+2 | 1   , 1
+3 | 1   , 2
+4 | 2   , 3
+5 | 3   , 5
+6 | 5   , 8
+7 | 8   , 13
+8 | 13  , 21
+9 | 21  , 34
+
+0 의 출력 횟수
+d[0] = 1
+d[1] = 0
+d[2] = 1
+
+d[x] = d[x-1] + d[x-2]
+
+1 의 출력 횟수는 d[x+1]
+'''
+
+d = [0, 1, 1]
+for i in range(3, 41) :
+    d.append(d[i-1] + d[i-2])
+
 n = int(input())
 
-def fibonacci(n) :
-    global count_0, count_1
-    if n == 0 :
-        count_0 += 1
-        return 0
-    elif n == 1 :
-        count_1 += 1
-        return 1
-    else :
-        return fibonacci(n-1) + fibonacci(n-2)
-
 for i in range(n) :
-    count_0 = 0
-    count_1 = 0
-    fibonacci(int(input()))
-    
-    print(count_0, count_1)
-
-# 시간초과
+    t = int(input())
+    if t == 0 :
+        print(1 , d[0])
+    elif t == 1 :
+        print(d[0], d[1])
+    else :
+        print(d[t-1], d[t])
